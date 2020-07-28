@@ -63,6 +63,10 @@ the "Restore pages?" popup.
 
 ### Usage
 
+Here's an example of the board in action:
+
+![Image of CharlieBoard showing 86 and 91 buses](example.jpg)
+
 The MBTA doesn't run anything overnight, and there may be other times that
 no-one could possibly see the screen so you would want to turn it off. For my
 HDMI flatscreen, this command worked to turn the screen off:
