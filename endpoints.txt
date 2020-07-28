@@ -1,0 +1,10 @@
+These are a few records of the actual API calls, so I'm not always
+crawling through source looking for them.
+
+Predictions for stop: https://api-v3.mbta.com/predictions?filter[stop]=%d&sort=departure_time
+
+CT2 route - https://api-v3.mbta.com/routes/747
+Cambridge St @ Brighton St - https://api-v3.mbta.com/stops/2757
+Cambridge St @ Carter St - https://api-v3.mbta.com/stops/2779
+Sullivan to Forest Hills - https://api-v3.mbta.com/stops/70030
+Sullivan to Oak Grove - https://api-v3.mbta.com/stops/70031
