@@ -14,6 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# This is set up to be run using mod_cgi in Apache.
+# Other Web server setups will require adaptation.
+
 from datetime import datetime
 from datetime import timedelta
 from dateutil import parser
@@ -30,6 +33,9 @@ cgitb.enable()
 print("Content-Type: text/html\n")
 
 
+# Most buses use the same ID internally and externally, like the 86.
+# However, a few, like the CT2, have a different ID. This dictionary lets the
+# board display the bus using the external, human-friendly name.
 ROUTE_NAMES = {
     "747": "CT2"
 }
@@ -100,14 +106,10 @@ def get_predictions():
             return s
         return s.html()
     
-    empty = True
     for from_pred, to_pred in itertools.zip_longest(from_sullivan(), to_sullivan(), fillvalue=""):
-        empty = False
         table.append("<tr><td>{from_pred}</td><td>{to_pred}</td></tr>".format(
             from_pred=html(from_pred),
             to_pred=html(to_pred)))
-    if not empty:
-        subprocess.Popen(["/bin/bash", "/home/pi/bin/turn-on-screen"]).communicate()
 
     with open("predictions.template.html") as pred_tmpl:
         return pred_tmpl.read().format(predictions="\n".join(table))
@@ -135,6 +137,7 @@ def orange_line():
     return outbound + inbound
 
 
+# The Orange Line is in "metadata" because this was originally bus-only, and the train fit best here.
 def get_metadata():
     return """<div class="orangeline">{}</div><div class="time">{}</div>""".format(
         orange_line(),
@@ -145,5 +148,3 @@ predictions = get_predictions()
 
 with open("index.template.html") as index_html:
     print(index_html.read().format(metadata=get_metadata(), predictions=predictions))
-
-# https://api-v3.mbta.com/predictions?filter[stop]=12759
